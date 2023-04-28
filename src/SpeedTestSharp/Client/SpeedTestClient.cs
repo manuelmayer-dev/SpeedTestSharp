@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,8 +56,9 @@ namespace SpeedTestSharp.Client
                     var latency = await TestServerLatencyAsync(server);
                     serverLatency.TryAdd(server, latency);
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     // ignore this server
                 }
             }
@@ -66,7 +68,7 @@ namespace SpeedTestSharp.Client
 
         private async Task<Server[]> FetchServersAsync()
         {
-            using var httpClient = new HttpClient();
+            using var httpClient = GetHttpClient();
             var serversXml = await httpClient.GetStringAsync(Constants.ServersUrl);
             return serversXml.DeserializeFromXml<ServersList>().Servers ?? Array.Empty<Server>();
         }
@@ -82,7 +84,7 @@ namespace SpeedTestSharp.Client
 
             var latencyUrl = GetBaseUrl(server.Url).Append("latency.txt");
             var stopwatch = new Stopwatch();
-            using var httpClient = new HttpClient();
+            using var httpClient = GetHttpClient();
             
             var test = 1;
             do
@@ -98,7 +100,7 @@ namespace SpeedTestSharp.Client
                 test++;
             } while (test < tests);
             
-            return (int)stopwatch.ElapsedMilliseconds / tests / 2;
+            return (int)stopwatch.ElapsedMilliseconds / tests;
         }
         
         private async Task<double> TestUploadSpeedAsync(Server server, int parallelUploads)
@@ -145,13 +147,13 @@ namespace SpeedTestSharp.Client
             var timer = new Stopwatch();
             var throttler = new SemaphoreSlim(parallelTasks);
 
-            using var httpClient = new HttpClient();
             timer.Start();
             long totalBytesProcessed = 0;
 
             var downloadTasks = testData.Select(async data =>
             {
                 await throttler.WaitAsync().ConfigureAwait(false);
+                using var httpClient = GetHttpClient();
                 try
                 {
                     var size = await doWork(httpClient, data).ConfigureAwait(false);
@@ -246,6 +248,16 @@ namespace SpeedTestSharp.Client
         private static string GetBaseUrl(string url)
         {
             return new Uri(new Uri(url), ".").OriginalString;
+        }
+
+        private static HttpClient GetHttpClient()
+        {
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36");
+            httpClient.DefaultRequestHeaders.Accept.ParseAdd("text/html, application/xhtml+xml, */*");
+            httpClient.DefaultRequestHeaders.CacheControl = new CacheControlHeaderValue {NoCache = true};
+            return httpClient;
         }
     }
 }
