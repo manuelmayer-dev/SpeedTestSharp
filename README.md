@@ -1,6 +1,9 @@
 # SpeedTestSharp
 A simple and lightweight library to test the latency, download and upload speed of the internet.
 
+## NuGet
+https://www.nuget.org/packages/SuchByte.SpeedTestSharp/
+
 ## Basic Usage
 ```c#
 ISpeedTestClient speedTestClient = new SpeedTestClient();
