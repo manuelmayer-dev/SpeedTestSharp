@@ -6,6 +6,12 @@
         <Title>SpeedTestSharp</Title>
         <Description>A simple and lightweight library to test the latency, download and upload speed of the internet.</Description>
         <Copyright>Manuel Mayer</Copyright>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>SuchByte</Authors>
+        <PackageProjectUrl>https://github.com/SuchByte/SpeedTestSharp</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/SuchByte/SpeedTestSharp/blob/master/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/SuchByte/SpeedTestSharp</RepositoryUrl>
+        <PackageTags>SpeedTest</PackageTags>
     </PropertyGroup>
 
 </Project>
