@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>net7.0;netstandard2.1</TargetFrameworks>
+        <Nullable>enable</Nullable>
+        <Title>SpeedTestSharp</Title>
+        <Description>A simple and lightweight library to test the latency, download and upload speed of the internet.</Description>
+        <Copyright>Manuel Mayer</Copyright>
+    </PropertyGroup>
+
+</Project>

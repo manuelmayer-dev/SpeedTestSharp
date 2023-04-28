@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestSharp", "src\SpeedTestSharp\SpeedTestSharp.csproj", "{E98FEB7F-43D5-4832-9352-8B481742E08F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4BB838F4-80CA-422C-BF32-C40F33891655}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestSharp.Example", "src\SpeedTestSharp.Example\SpeedTestSharp.Example.csproj", "{FAF42610-0443-4FA6-94FC-C4B5144E46B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E98FEB7F-43D5-4832-9352-8B481742E08F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E98FEB7F-43D5-4832-9352-8B481742E08F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E98FEB7F-43D5-4832-9352-8B481742E08F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E98FEB7F-43D5-4832-9352-8B481742E08F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF42610-0443-4FA6-94FC-C4B5144E46B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF42610-0443-4FA6-94FC-C4B5144E46B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF42610-0443-4FA6-94FC-C4B5144E46B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF42610-0443-4FA6-94FC-C4B5144E46B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E98FEB7F-43D5-4832-9352-8B481742E08F} = {4BB838F4-80CA-422C-BF32-C40F33891655}
+		{FAF42610-0443-4FA6-94FC-C4B5144E46B9} = {4BB838F4-80CA-422C-BF32-C40F33891655}
+	EndGlobalSection
+EndGlobal
