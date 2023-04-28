@@ -24,7 +24,7 @@ speedTestClient.ProgressChanged += (sender, info) =>
     Console.WriteLine($"{info.BytesProcessed} bytes @ {info.Speed} {speedTestClient.SpeedUnit}");
 };
 
-var result = await speedTestClient.TestSpeedAsync(SpeedUnit.MBps);
+var result = await speedTestClient.TestSpeedAsync(SpeedUnit.Mbps);
 
 Console.WriteLine("============[Finished]============");
 Console.WriteLine($"Latency: {result.Latency}ms");
