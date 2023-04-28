@@ -17,7 +17,7 @@ namespace SpeedTestSharp.Client
 {
     public class SpeedTestClient : ISpeedTestClient
     {
-        public TestStage CurrentStage { get; private set; } = TestStage.Prepare;
+        public TestStage CurrentStage { get; private set; } = TestStage.Stopped;
         public SpeedUnit SpeedUnit { get; private set; } = SpeedUnit.Kbps;
 
         public event EventHandler<TestStage>? StageChanged;
@@ -29,20 +29,31 @@ namespace SpeedTestSharp.Client
             bool testDownload = true,
             bool testUpload = true)
         {
-            SpeedUnit = speedUnit;
-            
-            var server = await GetBestServerByLatency();
-
-            if (server == null)
+            if (CurrentStage != TestStage.Stopped)
             {
-                throw new InvalidOperationException("No server was found");
+                throw new InvalidOperationException("Speedtest already running");
             }
+            SpeedUnit = speedUnit;
 
-            var latency = testLatency ? await TestServerLatencyAsync(server) : -1;
-            var downloadSpeed = testDownload ? await TestDownloadSpeedAsync(server, parallelTasks) : -1;
-            var uploadSpeed = testUpload ? await TestUploadSpeedAsync(server, parallelTasks) : -1;
+            try
+            {
+                var server = await GetBestServerByLatency();
 
-            return new SpeedTestResult(speedUnit, downloadSpeed, uploadSpeed, latency);
+                if (server == null)
+                {
+                    throw new InvalidOperationException("No server was found");
+                }
+
+                var latency = testLatency ? await TestServerLatencyAsync(server) : -1;
+                var downloadSpeed = testDownload ? await TestDownloadSpeedAsync(server, parallelTasks) : -1;
+                var uploadSpeed = testUpload ? await TestUploadSpeedAsync(server, parallelTasks) : -1;
+
+                return new SpeedTestResult(speedUnit, downloadSpeed, uploadSpeed, latency);
+            }
+            finally
+            {
+                SetStage(TestStage.Stopped);
+            }
         }
 
         private async Task<Server?> GetBestServerByLatency()
