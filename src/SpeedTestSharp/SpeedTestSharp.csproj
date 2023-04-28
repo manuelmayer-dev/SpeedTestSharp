@@ -13,6 +13,7 @@
         <PackageLicenseUrl>https://github.com/SuchByte/SpeedTestSharp/blob/master/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/SuchByte/SpeedTestSharp</RepositoryUrl>
         <PackageTags>SpeedTest Internet</PackageTags>
+        <Version>1.0.1</Version>
     </PropertyGroup>
 
 </Project>
