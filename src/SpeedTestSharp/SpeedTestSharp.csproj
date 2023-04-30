@@ -10,10 +10,10 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Authors>SuchByte</Authors>
         <PackageProjectUrl>https://github.com/SuchByte/SpeedTestSharp</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/SuchByte/SpeedTestSharp/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageLicenseUrl>https://github.com/SuchByte/SpeedTestSharp/blob/main/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/SuchByte/SpeedTestSharp</RepositoryUrl>
         <PackageTags>SpeedTest Internet</PackageTags>
-        <Version>1.0.1</Version>
+        <Version>1.0.2</Version>
     </PropertyGroup>
 
 </Project>

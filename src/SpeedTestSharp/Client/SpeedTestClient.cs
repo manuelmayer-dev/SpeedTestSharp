@@ -67,9 +67,8 @@ namespace SpeedTestSharp.Client
                     var latency = await TestServerLatencyAsync(server);
                     serverLatency.TryAdd(server, latency);
                 }
-                catch (Exception ex)
+                catch
                 {
-                    Console.WriteLine(ex.Message);
                     // ignore this server
                 }
             }
