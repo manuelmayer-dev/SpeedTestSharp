@@ -4,7 +4,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestSharp", "src\Speed
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4BB838F4-80CA-422C-BF32-C40F33891655}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestSharp.Example", "src\SpeedTestSharp.Example\SpeedTestSharp.Example.csproj", "{FAF42610-0443-4FA6-94FC-C4B5144E46B9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedTestSharp.Example", "examples\SpeedTestSharp.Example\SpeedTestSharp.Example.csproj", "{FAF42610-0443-4FA6-94FC-C4B5144E46B9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{3845BC2F-B93A-40B7-9AE6-BDD8C7FAE1A4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution", "solution", "{B1276002-EF52-48F4-9F09-6F8E7B8A044F}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3DFA2DE3-9EBC-4AB3-86EF-C459A246A958}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\publish_nuget.yml = .github\workflows\publish_nuget.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +36,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E98FEB7F-43D5-4832-9352-8B481742E08F} = {4BB838F4-80CA-422C-BF32-C40F33891655}
-		{FAF42610-0443-4FA6-94FC-C4B5144E46B9} = {4BB838F4-80CA-422C-BF32-C40F33891655}
+		{FAF42610-0443-4FA6-94FC-C4B5144E46B9} = {3845BC2F-B93A-40B7-9AE6-BDD8C7FAE1A4}
 	EndGlobalSection
 EndGlobal

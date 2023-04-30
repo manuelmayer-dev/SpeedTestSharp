@@ -5,12 +5,12 @@ Console.WriteLine("SpeedTestSharp example");
 
 ISpeedTestClient speedTestClient = new SpeedTestClient();
 
-speedTestClient.StageChanged += (sender, stage) =>
+speedTestClient.StageChanged += (_, stage) =>
 {
     Console.WriteLine($"Changed stage to: {stage}");
 };
 
-speedTestClient.ProgressChanged += (sender, info) =>
+speedTestClient.ProgressChanged += (_, info) =>
 {
     switch (speedTestClient.CurrentStage)
     {

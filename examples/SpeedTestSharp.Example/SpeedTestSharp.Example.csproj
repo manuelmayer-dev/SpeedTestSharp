@@ -8,7 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SpeedTestSharp\SpeedTestSharp.csproj" />
+      <ProjectReference Include="..\..\src\SpeedTestSharp\SpeedTestSharp.csproj" />
     </ItemGroup>
 
 </Project>
