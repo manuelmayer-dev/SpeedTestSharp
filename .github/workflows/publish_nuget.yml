@@ -1,0 +1,37 @@
+name: NuGet Package
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0'
+
+      - name: Restore dependencies
+        run: dotnet restore src/SpeedTestSharp/SpeedTestSharp.csproj
+
+      - name: Build project
+        run: dotnet build src/SpeedTestSharp/SpeedTestSharp.csproj --configuration Release
+
+      - name: Create NuGet package
+        run: dotnet pack src/SpeedTestSharp/SpeedTestSharp.csproj --configuration Release
+
+      - name: Setup Publish NuGet package
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NUGET_API_KEY }} # Replace with your NuGet API key
+      
+      - name: Publish NuGet package
+        run: dotnet nuget push src/SpeedTestSharp/bin/Release/*.nupkg --skip-duplicate
