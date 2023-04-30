@@ -34,4 +34,4 @@ jobs:
           nuget-api-key: ${{ secrets.NUGET_API_KEY }} # Replace with your NuGet API key
       
       - name: Publish NuGet package
-        run: dotnet nuget push src/SpeedTestSharp/bin/Release/*.nupkg --skip-duplicate --source https://www.nuget.org/packages/SuchByte.SpeedTestSharp
+        run: dotnet nuget push src/SpeedTestSharp/bin/Release/*.nupkg --skip-duplicate --source https://www.nuget.org/packages/SuchByte.SpeedTestSharp -k ${{ secrets.NUGET_API_KEY }}
