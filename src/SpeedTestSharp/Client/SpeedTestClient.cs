@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Runtime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace SpeedTestSharp.Client
                     throw new InvalidOperationException("No server was found");
                 }
 
-                var latency = testLatency ? await TestServerLatencyAsync(server) : -1;
+                var latency = testLatency ? await TestServerLatencyAsync(server, Constants.DefaultHttpTimeoutMilliseconds) : -1;
                 var downloadSpeed = testDownload ? await TestDownloadSpeedAsync(server, parallelTasks) : -1;
                 var uploadSpeed = testUpload ? await TestUploadSpeedAsync(server, parallelTasks) : -1;
 
@@ -59,13 +60,25 @@ namespace SpeedTestSharp.Client
         private async Task<Server?> GetBestServerByLatency()
         {
             var servers = await FetchServersAsync();
-            var serverLatency = new Dictionary<Server, int>();
+
+            var fastestLatency = Constants.DefaultHttpTimeoutMilliseconds;
+            Server? fastestServer = null;
+
             foreach (var server in servers)
             {
+                // Reduce the HttpClient timeout to the fastest latency found so far
+                // (ie. do not wait for servers where the response time is above the fastest)
+
                 try
                 {
-                    var latency = await TestServerLatencyAsync(server);
-                    serverLatency.TryAdd(server, latency);
+                    var latency = await TestServerLatencyAsync(server, fastestLatency);
+
+                    if (latency < fastestLatency)
+                    {
+                        // A new fastest server is found
+                        fastestLatency = latency;
+                        fastestServer = server;
+                    }
                 }
                 catch
                 {
@@ -73,7 +86,7 @@ namespace SpeedTestSharp.Client
                 }
             }
 
-            return serverLatency.OrderBy(x => x.Value).Select(x => x.Key).FirstOrDefault();
+            return fastestServer;
         }
 
         private async Task<Server[]> FetchServersAsync()
@@ -83,7 +96,7 @@ namespace SpeedTestSharp.Client
             return serversXml.DeserializeFromXml<ServersList>().Servers ?? Array.Empty<Server>();
         }
 
-        private async Task<int> TestServerLatencyAsync(Server server, int tests = 4)
+        private async Task<int> TestServerLatencyAsync(Server server, int httpTimeoutMilliseconds, int tests = 4)
         {
             SetStage(TestStage.Latency);
             
@@ -95,7 +108,8 @@ namespace SpeedTestSharp.Client
             var latencyUrl = GetBaseUrl(server.Url).Append("latency.txt");
             var stopwatch = new Stopwatch();
             using var httpClient = GetHttpClient();
-            
+            httpClient.Timeout = TimeSpan.FromMilliseconds(httpTimeoutMilliseconds);
+
             var test = 1;
             do
             {
