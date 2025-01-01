@@ -190,8 +190,7 @@ namespace SpeedTestSharp.Client
             await Task.WhenAll(downloadTasks);
             timer.Stop();
 
-            double totalSize = downloadTasks.Sum(task => task.Result);
-            return ConvertUnit(totalSize * 8 / 1024 / ((double)timer.ElapsedMilliseconds / 1000));
+            return ConvertUnit(totalBytesProcessed * 8 / 1024 / ((double)timer.ElapsedMilliseconds / 1000));
         }
         
         private static IEnumerable<byte[]> GenerateUploadData()
