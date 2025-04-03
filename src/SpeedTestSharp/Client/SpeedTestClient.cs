@@ -99,7 +99,7 @@ namespace SpeedTestSharp.Client
         private async Task<int> TestServerLatencyAsync(Server server, int httpTimeoutMilliseconds, int tests = 4)
         {
             SetStage(TestStage.Latency);
-            
+
             if (string.IsNullOrWhiteSpace(server.Url))
             {
                 throw new NullReferenceException("Server url was null");
@@ -123,14 +123,14 @@ namespace SpeedTestSharp.Client
                 }
                 test++;
             } while (test < tests);
-            
+
             return (int)stopwatch.ElapsedMilliseconds / tests;
         }
-        
+
         private async Task<double> TestUploadSpeedAsync(Server server, int parallelUploads)
         {
             SetStage(TestStage.Upload);
-            
+
             if (string.IsNullOrWhiteSpace(server.Url))
             {
                 throw new NullReferenceException("Server url was null");
@@ -149,7 +149,7 @@ namespace SpeedTestSharp.Client
         private async Task<double> TestDownloadSpeedAsync(Server server, int parallelDownloads)
         {
             SetStage(TestStage.Download);
-            
+
             if (string.IsNullOrWhiteSpace(server.Url))
             {
                 throw new NullReferenceException("Server url was null");
@@ -190,7 +190,7 @@ namespace SpeedTestSharp.Client
                                                ((double)timer.ElapsedMilliseconds / 1000)),
                         TotalBytes = size
                     };
-                    
+
                     ProgressChanged?.Invoke(this, progressInfo);
 
                     return size;
@@ -207,7 +207,7 @@ namespace SpeedTestSharp.Client
             double totalSize = downloadTasks.Sum(task => task.Result);
             return ConvertUnit(totalSize * 8 / 1024 / ((double)timer.ElapsedMilliseconds / 1000));
         }
-        
+
         private static IEnumerable<byte[]> GenerateUploadData()
         {
             var random = new Random();
@@ -252,7 +252,7 @@ namespace SpeedTestSharp.Client
             {
                 return;
             }
-            
+
             CurrentStage = newStage;
             StageChanged?.Invoke(this, newStage);
         }

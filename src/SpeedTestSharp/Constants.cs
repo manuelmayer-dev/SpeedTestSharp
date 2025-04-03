@@ -12,4 +12,3 @@ namespace SpeedTestSharp
         public const int DefaultHttpTimeoutMilliseconds = 100000;
     }
 }
-
